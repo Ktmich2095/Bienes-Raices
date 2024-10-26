@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Mi primer proyecto en NodeJS",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js"
@@ -29,6 +29,7 @@
     "nodemon": "^3.1.7"
   },
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "pug": "^3.0.3"
   }
 }

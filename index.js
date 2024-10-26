@@ -5,7 +5,14 @@ import usuarioRoutes from './routes/usuarioRoutes.js'
 const app = express()
 
 //Routing
-app.use('/',usuarioRoutes)
+app.use('/auth',usuarioRoutes)
+
+//Habilitar pug
+app.set('view engine','pug')
+app.set('views','./views')
+
+//Carpeta publica
+app.use(express.static('public'))
 
 //Definir un puerto y arrancar el proyecto
 const port = 2095;

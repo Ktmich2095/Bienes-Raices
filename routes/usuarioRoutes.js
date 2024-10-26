@@ -4,7 +4,9 @@ const router = express.Router();
 
 //Routing
 router.get('/login',(req,res) => {
-    res.render('auth/login')
+    res.render('auth/login',{
+        autenticado:true
+    })
 });
 
 

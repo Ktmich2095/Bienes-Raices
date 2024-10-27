@@ -85,10 +85,21 @@ const registrar = async (req,res) =>{
     console.log(req.body) //para leer informacion en express de usa req.body*/
 }
 
+//Función que comprueba una cuenta
+const confirmar = (req,res)=>{
+    const{token}=req.params
+    console.log(token)
+    
+    //Verificar si el token es valido
+
+    //Confirmar la cuenta
+    
+}
+
 const formularioOlvidePassword = (req, res) =>{
     res.render('auth/olvide_password',{
         pagina:'Recupera tu acceso a Bienes Raíces'
     })
 }
 
-export{formularioLogin,formularioRegistro,formularioOlvidePassword,registrar}
+export{formularioLogin,formularioRegistro,formularioOlvidePassword,registrar,confirmar}

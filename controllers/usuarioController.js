@@ -51,12 +51,22 @@ const registrar = async (req,res) =>{
             }
         })
     }
-    console.log(existeUsuario)
+
+    await Usuario.create({
+        nombre,
+        email,
+        password,
+        token:123
+    })
+
+    //no se puede revetir una contraseña hasheada, pero existe una funcion para comparar 
+
+    /*console.log(existeUsuario)
     return;
 
     const usuario = await Usuario.create(req.body)
     res.json(usuario)
-   /* console.log(req.body) //para leer informacion en express de usa req.body*/
+    console.log(req.body) //para leer informacion en express de usa req.body*/
 }
 
 const formularioOlvidePassword = (req, res) =>{

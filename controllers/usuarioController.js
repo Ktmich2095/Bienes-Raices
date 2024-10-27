@@ -150,7 +150,7 @@ const resetPassword = async (req,res) =>{ //valida el email para identificar
 
     //Generar un token y enviar el email
     usuario.token = generarId();
-    await usuario.save()
+    await usuario.save();
     
     //Enviar un email
     emailOlvidePassword({
@@ -166,14 +166,16 @@ const resetPassword = async (req,res) =>{ //valida el email para identificar
 })
 }
 
-const comprobarToken = (res,req) =>{
-
+const comprobarToken = async(res,req) => {
+    
+    
 }
 const nuevoPassword = (req,res) =>{
 
 }
 
-export{formularioLogin,
+export{
+    formularioLogin,
     formularioRegistro,
     formularioOlvidePassword,
     registrar,

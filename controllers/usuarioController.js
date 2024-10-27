@@ -11,7 +11,7 @@ const formularioRegistro = (req, res) =>{
     })
 }
 const registrar = (req,res) =>{
-    console.log("registrando...")
+    console.log(req.body) //para leer informacion en express de usa req.body
 }
 
 const formularioOlvidePassword = (req, res) =>{

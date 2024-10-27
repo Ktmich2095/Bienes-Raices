@@ -5,6 +5,9 @@ import db from './config/db.js'
 //Crear la app
 const app = express()
 
+//Habilitar lectura de datos de formulario
+app.use(express.urlencoded({extended:true})) //recibe los req
+
 //Routing
 app.use('/auth',usuarioRoutes)
 

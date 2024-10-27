@@ -10,6 +10,9 @@ const formularioRegistro = (req, res) =>{
         pagina:'Crear Cuenta'
     })
 }
+const registrar = (req,res) =>{
+    console.log("registrando...")
+}
 
 const formularioOlvidePassword = (req, res) =>{
     res.render('auth/olvide_password',{
@@ -17,4 +20,4 @@ const formularioOlvidePassword = (req, res) =>{
     })
 }
 
-export{formularioLogin,formularioRegistro,formularioOlvidePassword}
+export{formularioLogin,formularioRegistro,formularioOlvidePassword,registrar}

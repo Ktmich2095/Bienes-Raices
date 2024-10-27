@@ -99,7 +99,15 @@ const confirmar = async (req,res)=>{
         })
     }
     //Confirmar la cuenta
+    usuario.token=null;
+    usuario.confirmado=true
+    await usuario.save()
+    res.render('auth/confirmar-cuenta',{
+        pagina:'Cuenta confirmada',
+        mensaje:'La cuenta se confirmo correctamente'
+    })
     
+
     
 }
 

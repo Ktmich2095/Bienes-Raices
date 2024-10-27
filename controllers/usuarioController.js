@@ -160,18 +160,31 @@ const resetPassword = async (req,res) =>{ //valida el email para identificar
     })
     //Renderizar un mensaje
    //Mostrar mensaje de confirmación
-   res.render('templates/mensaje',{
+    res.render('templates/mensaje',{
     pagina:'Reestablece tu Password',
     mensaje:'Hemos enviado un Email con las instrucciones'
-})
+    })
 }
 
-const comprobarToken = async(res,req) => {
-    
-    
+const comprobarToken = async(req,res) => {
+    const { token } = req.params
+    const usuario = await Usuario.findOne({where: {token}})
+    if(!usuario){
+            return res.render('auth/confirmar-cuenta',{
+            pagina:'Reestablece tu password',
+            mensaje:'Hubo un error al confrimar tu información. Intenta de nuevo',
+            error:true
+        })
+    }
+
+    //Mostrar formulario para validar el password
+    res.render('auth/reset-password',{
+        pagina:'Reestablece tu Password',
+        csrfToken : req.csrfToken(),
+    })
 }
 const nuevoPassword = (req,res) =>{
-
+    console.log('Guardando cambios...')
 }
 
 export{

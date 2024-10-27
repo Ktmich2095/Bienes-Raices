@@ -14,6 +14,7 @@ app.use('/auth',usuarioRoutes)
 //Conexión a la base de datos
 try{
     await db.authenticate();
+    db.sync()
     console.log('Conexión correcta a la base de datos')
 }catch(error){
     console.log(error)

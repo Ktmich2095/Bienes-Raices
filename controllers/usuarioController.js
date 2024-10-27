@@ -60,6 +60,12 @@ const registrar = async (req,res) =>{
         token: generarId()
     })
 
+    //Mostrar mensaje de confirmación
+    res.render('templates/mensaje',{
+        pagina:'Cuenta Creada Correctamente',
+        mensaje:'Hemos enviado un Email de confirmación, presiona en el enlace'
+    })
+
     //no se puede revetir una contraseña hasheada, pero existe una funcion para comparar 
 
     /*console.log(existeUsuario)

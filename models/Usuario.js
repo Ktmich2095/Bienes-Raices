@@ -26,4 +26,11 @@ const Usuario = db.define('usuarios',{
     }
 })
 
+//Métodos personalizados
+//No se puede usar el this cuando se hace el =>
+//PROTOTYPE contiene las funciones que puede realizar ese objeto
+Usuario.prototype.verificarPassword = function(password){
+    return bcrypt.compareSync(password, this.password);
+}
+
 export default Usuario

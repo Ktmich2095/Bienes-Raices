@@ -70,7 +70,7 @@ const autenticar = async (req,res)=>{
     //Almacenar en un cookie
     return res.cookie('_token',token,{
         httpsOnly:true,//evita que sea accesible 
-       /* secure:true, //acepta cokkies en conexiones seguras cuando se tiene cerrtificado SSL
+       /* secure:true, //acepta cookies en conexiones seguras cuando se tiene cerrtificado SSL
         sameSite:true*/
     }).redirect('/mis-propiedades')
 }

@@ -1,14 +1,77 @@
 import {check,validationResult} from 'express-validator'
 import Usuario from "../models/Usuario.js"
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 import { generarId } from '../helpers/tokens.js' 
 import { emailRegistro } from '../helpers/emails.js'
 import { emailOlvidePassword } from '../helpers/emails.js'
 
 const formularioLogin = (req, res) =>{
     res.render('auth/login',{
-        pagina:'Iniciar Sesión'
+        pagina:'Iniciar Sesión',
+        csrfToken : req.csrfToken()
     })
+}
+
+const autenticar = async (req,res)=>{
+    //Validación
+    await check('email').isEmail().withMessage('El Email es obligatorio').run(req)
+    await check('password').notEmpty().withMessage('El password es obligatorio').run(req)
+    
+    let resultado = validationResult(req) 
+    //Verificar que el resultado este vacio
+    if(!resultado.isEmpty()){
+    //ERRORES  
+        return res.render('auth/login',{
+            pagina:'Iniciar Sesión',
+            csrfToken : req.csrfToken(),
+            errores: resultado.array(),
+        })
+    }
+    const {email,password} = req.body
+    //Comprobar si el usuario existe
+    const usuario=await Usuario.findOne({where:{email}})
+    if(!usuario){
+        return res.render('auth/login',{
+            pagina:'Iniciar Sesión',
+            csrfToken : req.csrfToken(),
+            errores: [{msg:'El usuario no existe'}],
+        })
+    }
+
+    //Comprobar si el usuario esta confirmado
+    if(!usuario.confirmado){
+        return res.render('auth/login',{
+            pagina:'Iniciar Sesión',
+            csrfToken : req.csrfToken(),
+            errores: [{msg:'Tu cuenta no ha sido confirmada'}],
+        })
+    }
+
+    //Revisar el password
+    if(!usuario.verificarPassword(password)){
+        return res.render('auth/login',{
+            pagina:'Iniciar Sesión',
+            csrfToken : req.csrfToken(),
+            errores: [{msg:'El password es incorrecto'}],
+        })
+    }
+    
+    /* JWT Json Web Token. estándar abierto que define un formato compacto y autónomo para transmitir 
+    información de forma segura entre partes como un objeto JSON. Este token se 
+    utiliza comúnmente en autenticación y autorización*/
+
+    //Autenticar al usuario
+    const token = jwt.sign({
+        nombre:'Michelle',
+        empresa:'mindmatch',
+        tecnologias:'Node.js'
+    },"topSecret",{
+        expiresIn:'1d'
+    })
+    console.log(token)
+
+
 }
 
 const formularioRegistro = (req, res) =>{
@@ -220,6 +283,7 @@ const nuevoPassword = async(req,res) =>{
 
 export{
     formularioLogin,
+    autenticar,
     formularioRegistro,
     formularioOlvidePassword,
     registrar,

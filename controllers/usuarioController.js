@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import { generarId } from '../helpers/tokens.js' 
 import { emailRegistro } from '../helpers/emails.js'
 import { emailOlvidePassword } from '../helpers/emails.js'
+import { generarJWT } from '../helpers/tokens.js'
 
 const formularioLogin = (req, res) =>{
     res.render('auth/login',{
@@ -62,16 +63,9 @@ const autenticar = async (req,res)=>{
     utiliza comúnmente en autenticación y autorización*/
 
     //Autenticar al usuario
-    const token = jwt.sign({
-        nombre:'Michelle',
-        empresa:'mindmatch',
-        tecnologias:'Node.js'
-    },"topSecret",{
-        expiresIn:'1d'
-    })
+    const token = generarJWT({id:usuario.id, nombre:usuario.nombre})
+    
     console.log(token)
-
-
 }
 
 const formularioRegistro = (req, res) =>{

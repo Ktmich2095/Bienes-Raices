@@ -2,7 +2,8 @@ import {exit} from 'node:process'
 import categorias from './categorias.js';
 import db from '../config/db.js';
 import precios from './precios.js';
-import {Categoria, Precio} from '../models/index.js'
+import usuarios from './usuarios.js';
+import {Categoria, Precio,Usuario} from '../models/index.js'
 
 
 const importarDatos = async()=>{
@@ -16,7 +17,8 @@ const importarDatos = async()=>{
         //Insertamos los datos
         await Promise.all([//se insertan al mismo tiempo si uno tiene error se pasa al catch
             Categoria.bulkCreate(categorias),//inserta todos los datos bulkcreate
-            Precio.bulkCreate(precios)//si no dependen los querys usar promise.all
+            Precio.bulkCreate(precios),//si no dependen los querys usar promise.all
+            Usuario.bulkCreate(usuarios)
         ])
         console.log('Datos importados correctamente')
         exit()//0 si termino y correcto, 1 finalizo pero hay error

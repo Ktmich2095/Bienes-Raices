@@ -16,10 +16,6 @@ router.post('/propiedades/crear',
     body('estacionamiento').isNumeric().withMessage('Selecciona la cantidad de estacionamientos'),
     body('wc').isNumeric().withMessage('Selecciona la cantidad de baños'),
     body('lat').notEmpty().withMessage('Ubica la propiedad en el mapa'),
-
-
-
-
     guardar)
 
 

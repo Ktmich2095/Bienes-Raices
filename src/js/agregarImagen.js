@@ -16,4 +16,4 @@ Dropzone.options.imagen = {
     'CSRF-Token':token//generando y leyendo para comunicaar libreria con package
   },
   paramName:'imagen'
-};
+} 

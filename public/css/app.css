@@ -617,6 +617,15 @@ video {
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
 }
+.divide-y > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-y-reverse: 0;
+  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+.divide-gray-300 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-divide-opacity));
+}
 .rounded {
   border-radius: 0.25rem;
 }
@@ -681,6 +690,9 @@ video {
 }
 .p-2 {
   padding: 0.5rem;
+}
+.p-6 {
+  padding: 1.5rem;
 }
 .px-10 {
   padding-left: 2.5rem;

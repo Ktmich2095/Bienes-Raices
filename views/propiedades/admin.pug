@@ -10,6 +10,10 @@ block contenido
 
         //pre= JSON.stringify(propiedades,undefined,2)//para poder pasar informacion de un controlador a una vista
         if propiedades.length
-
+            div(class="bg-white shadow rounded-lg")
+                ul(class="divide-y divide-gray-300")
+                    each propiedad in propiedades 
+                        li 
+                            div(class="p-6 w-")
         else 
             p.text-center No hay propiedades

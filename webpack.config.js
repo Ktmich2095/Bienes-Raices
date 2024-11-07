@@ -5,7 +5,8 @@ export default {
     mode:'development',
     entry:{
         //archivo original
-        mapa:'./src/js/mapa.js'
+        mapa:'./src/js/mapa.js',
+        agregarImagen:'./src/js/agregarImagen.js'
     },
     output:{
         //donde quiere que se proyecte

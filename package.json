@@ -9,9 +9,9 @@
     "server": "nodemon index.js",
     "css": "postcss public/css/tailwind.css -o public/css/app.css --watch",
     "js": "webpack --watch",
-    "dev":"concurrently \"npm run css\" \"npm run js\"",
-    "db:importar":"node ./seed/seeder.js -i",
-    "db:eliminar":"node ./seed/seeder.js -e"    
+    "dev": "concurrently \"npm run css\" \"npm run js\"",
+    "db:importar": "node ./seed/seeder.js -i",
+    "db:eliminar": "node ./seed/seeder.js -e"
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
     "cookie-parser": "^1.4.7",
     "csurf": "^1.10.0",
     "dotenv": "^16.4.5",
+    "dropzone": "^5.9.3",
     "express": "^4.21.1",
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",

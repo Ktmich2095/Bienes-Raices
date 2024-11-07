@@ -15,5 +15,19 @@ Dropzone.options.imagen = {
   headers:{
     'CSRF-Token':token//generando y leyendo para comunicaar libreria con package
   },
-  paramName:'imagen'
+  paramName:'imagen',
+  init:function(){
+    const dropzone = this
+    const btnPublicar = document.querySelector('#publicar')
+
+    btnPublicar.addEventListener('click',function(){
+      dropzone.processQueue()//se llama al metodo hasta que se haga click en el boton
+    })
+    dropzone.on('queuecomplete',function(){
+      //una vez q finaliza llama a este evento
+      if(dropzone.getActiveFiles().length == 0){
+        window.location.href = '/mis-propiedades'
+      }
+    })
+  }
 } 

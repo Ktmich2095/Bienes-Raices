@@ -98,7 +98,7 @@ const agregarImagen = async(req,res)=>{
         propiedad
     })
 }
-const almacenarImagen = async (req,res)=>{
+const almacenarImagen = async (req,res,next)=>{
 
     const {id} = req.params
     //validar que la propiedad exista
@@ -119,11 +119,13 @@ const almacenarImagen = async (req,res)=>{
     }
 
     try {
-        console.log(req.file)
+        //console.log(req.file)
         //almacenar la imagen y publicar propiedad
         propiedad.imagen = req.file.filename
         propiedad.publicado = 1 //cambiar el estado
         await propiedad.save()
+        //res.redirect('mis-propiedades') no funciona ya que se esta ejecutando el js
+        next()
     } catch (error) {
         console.log(error)
     }

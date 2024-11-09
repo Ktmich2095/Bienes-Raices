@@ -169,7 +169,7 @@ const editar = async (req,res)=>{
         csrfToken:req.csrfToken(),
         categorias,
         precios,
-        datos:{}  
+        datos:propiedad  
     })
 
 }

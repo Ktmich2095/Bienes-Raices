@@ -140,12 +140,30 @@ const almacenarImagen = async (req,res,next)=>{
         next()
     } catch (error) {
         console.log(error)
-    }
+    }  
+}
+
+const editar = async (req,res)=>{
+    
+    const [categorias,precios] = await Promise.all([//ambos inician al mismo tiempo no dependen
+        Categoria.findAll(),
+        Precio.findAll()
+    ])
+
+    res.render('propiedades/editar',{
+        pagina:'Editar propiedad',
+        csrfToken:req.csrfToken(),
+        categorias,
+        precios,
+        datos:{}  
+    })
+
 }
 export {
     admin,
     crear,
     guardar,
     agregarImagen,
-    almacenarImagen
+    almacenarImagen,
+    editar
 }

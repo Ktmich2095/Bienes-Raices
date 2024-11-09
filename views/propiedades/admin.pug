@@ -30,7 +30,13 @@ block contenido
                                         =propiedad.precio.precio
                                     
         
-                                div(class="sm:w-1/4 md:w-2/6 lg:w-1/6")
+                                div(class="sm:w-1/4 md:w-2/6 lg:flex-1 flex flex-col lg:flex-row gap-2 ")
 
+                                    form(action="" method="method")
+                                        input(type="submit", value=`${propiedad.publicado ? 'Publicado' : 'No Publicado'}` class=`w-full px-2 py-2 md:py-1 text-xs leading-5 font-semibold rounded cursor-pointer ${propiedad.publicado ? 'bg-green-100 text-green-800 ' : 'bg-yellow-100 text-yellow-800' }` )
+                                    a(href=`/propiedades/editar/${propiedad.id}` class="text-center px-2 py-2 md:py-1 text-xs leading-5 font-semibold rounded cursor-pointer bg-cyan-100 text-cyan-800") Editar   
+                                    form(action="" method="method")
+                                        input(type="submit", value="Eliminar" class=`w-full px-2 py-2 md:py-1 text-xs leading-5 font-semibold rounded cursor-pointer bg-red-100 text-red-800` )
+                                    
         else 
             p.text-center No hay propiedades

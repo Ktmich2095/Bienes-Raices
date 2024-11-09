@@ -574,6 +574,10 @@ video {
 .hidden {
   display: none;
 }
+.size-6 {
+  width: 1.5rem;
+  height: 1.5rem;
+}
 .h-96 {
   height: 24rem;
 }

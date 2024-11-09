@@ -6,7 +6,12 @@ const admin = async(req,res) =>{
     const propiedades = await Propiedad.findAll({
         where:{
             usuarioId:id
-        }
+        },
+        include:[
+            {model:Categoria,as:'categoria'},
+            {model:Precio,as:'precio'}
+        ]
+
     })
     res.render('propiedades/admin',{
         pagina:'Mis propiedades',

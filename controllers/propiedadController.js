@@ -1,5 +1,6 @@
+import { unlink } from 'node:fs/promises'
 import { validationResult } from "express-validator"
-import {Precio,Categoria,Propiedad} from "../models/index.js"
+import { Precio,Categoria,Propiedad } from "../models/index.js"
 
 const admin = async(req,res) =>{
     const {id}  = req.usuario
@@ -234,7 +235,29 @@ const guardarCambios = async (req,res) =>{
 }
 
 const eliminar = async (req,res) =>{
-    console.log("eliminando")
+    const {id}=req.params
+    //validar que la propiedad exista
+    const propiedad=await Propiedad.findByPk(id)
+
+    if(!propiedad){
+        return res.redirect('/mis-propiedades')
+    }
+
+    
+    //revisar que quien visita la URL es quien crean la propiedad
+    if(propiedad.usuarioId.toString() !== req.usuario.id.toString()){
+        return res.redirect('/mis-propiedades')
+    }
+
+    //eliminar la imagen
+    await unlink(`public/uploads/${propiedad.imagen}`)
+
+    console.log(`se elimino la imagen ${propiedad.imagen}`)
+
+
+    //eliminar la propiedad
+    await propiedad.destroy()
+    res.redirect('/mis-propiedades')
 }
 export {
     admin,

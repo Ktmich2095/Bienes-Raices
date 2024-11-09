@@ -165,7 +165,7 @@ const editar = async (req,res)=>{
     ])
 
     res.render('propiedades/editar',{
-        pagina:'Editar propiedad',
+        pagina:`Editar propiedad: ${propiedad.titulo}`,
         csrfToken:req.csrfToken(),
         categorias,
         precios,
@@ -173,11 +173,50 @@ const editar = async (req,res)=>{
     })
 
 }
+const guardarCambios = async (req,res) =>{
+
+    //validación
+    let resultado = validationResult(req)
+    if(!resultado.isEmpty()){
+        const [categorias,precios] = await Promise.all([//ambos inician al mismo tiempo no dependen
+            Categoria.findAll(),
+            Precio.findAll()
+        ])
+
+        return res.render('propiedades/editar',{
+            pagina:'Editar propiedad',
+            csrfToken:req.csrfToken(),
+            categorias,
+            precios,
+            errores:resultado.array(),
+            datos:req.body  
+        })
+    }
+
+
+    const {id}=req.params
+    //validar que la propiedad exista
+    const propiedad=await Propiedad.findByPk(id)
+
+    if(!propiedad){
+        return res.redirect('/mis-propiedades')
+    }
+
+    
+    //revisar que quien visita la URL es quien crean la propiedad
+    if(propiedad.usuarioId.toString() != req.usuario.id.toString()){
+        return res.redirect('/mis-propiedades')
+    }
+
+
+    //reescribir el objeto y actualizarlo
+}
 export {
     admin,
     crear,
     guardar,
     agregarImagen,
     almacenarImagen,
-    editar
+    editar,
+    guardarCambios
 }

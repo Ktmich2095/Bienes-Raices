@@ -236,6 +236,12 @@ const guardarCambios = async (req,res) =>{
 const eliminar = async (req,res) =>{
     console.log("eliminando")
 }
+
+//mouestra una propiedad
+
+const mostrarPropiedad = async (req,res)=>{
+    res.render('propiedades/mostrar')
+}
 export {
     admin,
     crear,
@@ -244,5 +250,6 @@ export {
     almacenarImagen,
     editar,
     guardarCambios,
-    eliminar
+    eliminar,
+    mostrarPropiedad
 }

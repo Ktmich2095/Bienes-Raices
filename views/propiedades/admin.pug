@@ -20,7 +20,7 @@ block contenido
                                     img(src=`uploads/${propiedad.imagen}`, alt=`Imagen propiedad ${propiedad.titulo}` class="w-full")
                                 div(class="sm:w-2/4 md:w-3/6 lg:w-4/6 space-y-3")
 
-                                    a(class="block text-2xl font-extrabold text-cyan-800 truncate" href="#")= propiedad.titulo
+                                    a(class="block text-2xl font-extrabold text-cyan-800 truncate" href=`/propiedad/${propiedad.id}`)= propiedad.titulo
 
                                     p(class="text-sm text-black font-bold")=propiedad.categoria.nombre
 
@@ -38,6 +38,6 @@ block contenido
                                     form(action=`/propiedades/eliminar/${propiedad.id}` method="POST")
                                         input(type="hidden", name="_csrf" value=csrfToken)
                                         input(type="submit", value="Eliminar" class=`w-full px-2 py-2 md:py-1 text-xs leading-5 font-semibold rounded cursor-pointer bg-red-100 text-red-800` )
+                                    
         else 
-        
             p.text-center No hay propiedades

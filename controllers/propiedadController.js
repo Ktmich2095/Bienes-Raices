@@ -6,8 +6,8 @@ const admin = async(req,res) =>{
 
     //leer querystring
     const{pagina:paginaActual}=req.query
-    
-    const expresion = /[0-9]/
+    //^ tiene q iniciar con digito, $ debe finalizar con digito
+    const expresion = /^[0-9]$/
 
     if(!expresion.test(paginaActual)){
         return res.redirect('/mis-propiedades?pagina=1')

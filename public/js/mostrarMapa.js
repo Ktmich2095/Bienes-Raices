@@ -8,9 +8,6 @@
  */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-<<<<<<< HEAD
-/******/ 	
-=======
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/js/mostrarMapa.js":
@@ -47,7 +44,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n(function(){\r\n    const lat
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	var __webpack_exports__ = {};
 /******/ 	__webpack_modules__["./src/js/mostrarMapa.js"](0, __webpack_exports__, __webpack_require__);
->>>>>>> seccion20
 /******/ 	
 /******/ })()
 ;

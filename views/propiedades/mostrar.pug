@@ -26,4 +26,12 @@ block contenido
                         p(class="text-gray-600 font-bold text-xs") Precio
                             span(class="text-gray-800 block text-lg")= propiedad.precio.precio
 
-            div(class="md:w-1/3")    2
+            div(class="md:w-1/3")
+                h3(class="text-center py-10 leading-6 text-2xl font-bold text-gray-900")
+                div(class="h-96" id="mapa")
+                    p(class="hidden" id="lat")= propiedad.lat 
+                    p(class="hidden" id="lng")= propiedad.lng
+                
+                div(class="p-5")
+                    p(class="text-gray-600 font-bold text-xs") Dirección     
+                        span(class="text-gray-800 block text-lg")= propiedad.calle

@@ -5,7 +5,15 @@ import {unlink} from 'node:fs/promises'
 const admin = async(req,res) =>{
 
     //leer querystring
-    console.log(req.query)
+    const{pagina:paginaActual}=req.query
+    
+    const expresion = /[0-9]/
+
+    if(!expresion.test(paginaActual)){
+        return res.redirect('/mis-propiedades?pagina=1')
+    }
+
+
 
 
     const {id}  = req.usuario

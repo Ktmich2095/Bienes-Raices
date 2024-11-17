@@ -28,11 +28,19 @@
     const mostrarPropiedades = propiedades => {
         propiedades.forEach(propiedad => {
             if (propiedad.lat && propiedad.lng) {
+                
                 const marker = new L.marker([propiedad.lat, propiedad.lng], {
                     autoPan: true,
                 })
                     .addTo(mapa)
-                    .bindPopup('Información aquí');
+                    .bindPopup(`
+                        <p class="text-cyan-600 font-bold">${propiedad.categoria.nombre}</p>
+                        <h1 class="text-xl font-extrabold uppercase my-3">${propiedad?.titulo}</h1>
+                        <img src="/uploads/${propiedad?.imagen}" alt="Imagen de la propiedad ${propiedad.titulo}">
+                        <p class="text-gray-600 font-bold">${propiedad.precio.precio}</p>
+                        <a href="/propiedad/${propiedad.id}" class="bg-cyan-600 block p-2 text-center font-bold uppercase">Ver propiedad</a>
+
+                        `);
     
                 markers.addLayer(marker);
             } else {

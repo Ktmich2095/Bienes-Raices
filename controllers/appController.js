@@ -1,9 +1,20 @@
 import express from 'express'
-   
+import {Precio,Propiedad,Categoria} from '../models/index.js'
 
-const inicio = (req,res) =>{
+const inicio = async (req,res) =>{
+
+    const [ categorias,precios] = await Promise.all([
+        Categoria.findAll({raw:true}),
+        Precio.findAll({raw:true})
+
+    ])
+
+    console.log(categorias)
+
     res.render('inicio',{
-        pagina:'Inicio'
+        pagina:'Inicio',
+        categorias,
+        precios
     })
 }
 

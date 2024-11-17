@@ -1,23 +1,61 @@
 import { validationResult } from "express-validator"
 import {Precio,Categoria,Propiedad} from "../models/index.js"
+import {unlink} from 'node:fs/promises'
 
 const admin = async(req,res) =>{
-    const {id}  = req.usuario
-    const propiedades = await Propiedad.findAll({
-        where:{
-            usuarioId:id
-        },
-        include:[
-            {model:Categoria,as:'categoria'},
-            {model:Precio,as:'precio'}
-        ]
 
-    })
-    res.render('propiedades/admin',{
-        pagina:'Mis propiedades',
-        propiedades,
-        csrfToken:req.csrfToken(),
-    })
+    //leer querystring
+    const { pagina:paginaActual } = req.query
+    //^ tiene q iniciar con digito, $ debe finalizar con digito
+    const expresion = /^[1-9]$/
+
+    if(!expresion.test(paginaActual)){
+        return res.redirect('/mis-propiedades?pagina=1')
+    }
+
+    try {
+        const {id}  = req.usuario
+
+        //limites y offset para el paginador
+        const limit=10;
+        const offset=((paginaActual * limit) - limit)
+
+        const [propiedades,total] = await Promise.all([
+            Propiedad.findAll({
+                limit,
+                offset,
+                where:{
+                    usuarioId:id
+                },
+                include:[
+                    {model:Categoria,as:'categoria'},
+                    {model:Precio,as:'precio'}
+                ]
+            }),
+            Propiedad.count({
+                where:{
+                    usuarioId:id
+                }
+            })
+        ])
+
+        res.render('propiedades/admin',{
+            pagina:'Mis propiedades',
+            propiedades,
+            csrfToken:req.csrfToken(),
+            paginas:Math.ceil(total/limit),
+            paginaActual:Number(paginaActual),
+            offset,
+            limit,
+            total
+        })
+    } catch (error) {
+        console.log(error)
+    }
+
+
+
+    
 }
 
 //Formulario para crear una nueva propiedad
@@ -234,10 +272,30 @@ const guardarCambios = async (req,res) =>{
 }
 
 const eliminar = async (req,res) =>{
-    console.log("eliminando")
+    const {id}=req.params
+    //validar que la propiedad exista
+    const propiedad=await Propiedad.findByPk(id)
+
+    if(!propiedad){
+        return res.redirect('/mis-propiedades')
+    }
+
+    
+    //revisar que quien visita la URL es quien crean la propiedad
+    if(propiedad.usuarioId.toString() != req.usuario.id.toString()){
+        return res.redirect('/mis-propiedades')
+    }
+
+    //eliminar la imagen
+    await unlink(`public/uploads/${propiedad.imagen}`)
+    console.log('se  elimino la imagen')
+
+    //eliminar la propiedad
+    await propiedad.destroy()
+    res.redirect('/mis-propiedades')
 }
 
-//mouestra una propiedad
+//muestra una propiedad
 
 const mostrarPropiedad = async (req,res)=>{
     const{id}=req.params

@@ -2,7 +2,9 @@ import express from 'express'
    
 
 const inicio = (req,res) =>{
-    res.send('inicio')
+    res.render('inicio',{
+        pagina:'Inicio'
+    })
 }
 
 const categoria = (req,res) =>{

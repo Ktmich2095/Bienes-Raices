@@ -17,7 +17,7 @@ const admin = async(req,res) =>{
         const {id}  = req.usuario
 
         //limites y offset para el paginador
-        const limit= 10;
+        const limit= 5;
         const offset=((paginaActual * limit) - limit)
 
         const [propiedades,total] = await Promise.all([
@@ -43,7 +43,8 @@ const admin = async(req,res) =>{
             pagina:'Mis propiedades',
             propiedades,
             csrfToken:req.csrfToken(),
-            paginas:Math.ceil(total/limit)
+            paginas:Math.ceil(total/limit),
+            paginaActual
         })
     } catch (error) {
         console.log(error)

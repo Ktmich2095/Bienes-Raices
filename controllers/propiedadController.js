@@ -5,7 +5,7 @@ import {unlink} from 'node:fs/promises'
 const admin = async(req,res) =>{
 
     //leer querystring
-    const{pagina:paginaActual}=req.query
+    const { pagina:paginaActual } = req.query
     //^ tiene q iniciar con digito, $ debe finalizar con digito
     const expresion = /^[0-9]$/
 
@@ -13,25 +13,36 @@ const admin = async(req,res) =>{
         return res.redirect('/mis-propiedades?pagina=1')
     }
 
+    try {
+        const {id}  = req.usuario
+
+        //limites y offset para el paginador
+        const limit= 10;
+        const offset=((paginaActual * limit) - limit)
+
+        const propiedades = await Propiedad.findAll({
+            limit,
+            offset,
+            where:{
+                usuarioId:id
+            },
+            include:[
+                {model:Categoria,as:'categoria'},
+                {model:Precio,as:'precio'}
+            ]
+        })
+        res.render('propiedades/admin',{
+            pagina:'Mis propiedades',
+            propiedades,
+            csrfToken:req.csrfToken(),
+        })
+    } catch (error) {
+        console.log(error)
+    }
 
 
 
-    const {id}  = req.usuario
-    const propiedades = await Propiedad.findAll({
-        where:{
-            usuarioId:id
-        },
-        include:[
-            {model:Categoria,as:'categoria'},
-            {model:Precio,as:'precio'}
-        ]
-
-    })
-    res.render('propiedades/admin',{
-        pagina:'Mis propiedades',
-        propiedades,
-        csrfToken:req.csrfToken(),
-    })
+    
 }
 
 //Formulario para crear una nueva propiedad

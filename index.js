@@ -11,6 +11,7 @@ import db from './config/db.js'
 
 //Crear la app
 const app = express()
+app.use(express.json());
 
 
 //Habilitar lectura de datos de formulario
@@ -24,10 +25,10 @@ app.use(cookieParser())
 app.use(csrf({ cookie: true }));
 
 //Routing
-app.use('/',appRoutes)
-app.use('/auth',usuarioRoutes)
-app.use('/',propiedadesRoutes)
-app.use('/api',apiRoutes)
+app.use('/api', apiRoutes); 
+app.use('/', appRoutes);
+app.use('/auth', usuarioRoutes);
+app.use('/', propiedadesRoutes); 
 
 //Conexión a la base de datos
 try{

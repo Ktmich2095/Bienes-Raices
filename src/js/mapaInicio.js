@@ -6,4 +6,21 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapa);
+
+    //JSON (javaScript object notation)
+
+    const obtenerPropiedades = async () => {
+        try {
+            const url = '/api/propiedades' 
+            const respuesta = await fetch(url) 
+            const propiedades = await respuesta.json()
+
+            
+            console.log(propiedades)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    obtenerPropiedades()
 })()
